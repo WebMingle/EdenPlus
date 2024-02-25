@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+
+    <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="product__details__pic">
+                       
+                        <div class="product__details__slider__content">
+                            <div class="product__details__pic__slider owl-carousel">
+                                <img data-hash="product-1" class="product__big__img" src="{{ single_product.images.url }}" alt="">
+                                <img data-hash="product-2" class="product__big__img" src="{{ single_product.images.url }}" alt="">
+                                <img data-hash="product-3" class="product__big__img" src="{{ single_product.images.url }}" alt="">
+                                <img data-hash="product-4" class="product__big__img" src="{{ single_product.images.url }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="product__details__text">
+                        <h3>{{ single_product.product_name }} <span></span></h3>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <span>( 138 reviews )</span>
+                        </div>
+                        <div class="product__details__price">₹ {{single_product.price}} <span>₹ {{single_product.original_price}}</span></div>
+                        <p>{{single_product.delivery_time}}</p>
+                        <form action="{% url 'add_cart' single_product.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="product__details__button">
+                            <div class="quantity">
+                                <span>Quantity:</span>
+                                <div class="pro-qty">
+                                    <input type="text" value="1">
+                                </div>
+                            </div>
+                            {% if single_product.stock <= 0 %}
+                             <a class="cart-btn">  Out Of Stock</a>
+                             {% else %}
+                            <button class="cart-btn primary"><span class="icon_cart_alt"></span> Order Now</button>
+                            {% endif %}
+                            
+                            <ul>
+                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                <li><a href="#" alt="save for later"><span class="icon_bag_alt"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__details__widget">
+                            <ul>
+                                  <li>
+                                <div class="product__details__button">
+                                    <span>Available Type:</span>
+                                     <select name="prodtype" class="form-control" required>
+                                      <option value="" disabled selected> Choose What You Want </option>
+                                      {% for i in single_product.variation_set.prodtypes %}
+                                      <option value="{{ i.variation_value | lower }}"> {{ i.variation_value | capfirst }} </option>
+                                      {% endfor %}
+                                    </select>
+                                </li>
+                                <li>
+                                    <span>Available size:</span>
+                                     <select name="size" class="form-control">
+                                     <option value="" disabled selected> Choose What You Want </option>
+                                      {% for i in single_product.variation_set.sizes %}
+                                      <option value="{{ i.variation_value | lower }}"> {{ i.variation_value | capfirst }} </option>
+                                      {% endfor %}
+                                    </select>
+                                </li>
+                                </form>
+                                  <li>
+                                    <span>Availability:</span>
+                                    <p>{{ single_product.is_available }}</p>
+                                  </li> 
+                                <li>
+                                    <span>Product Type:</span>
+                                    <p>Bonsai</p>
+                                </li>
+                                <li>
+                                    <span>Delivery Charge:</span>
+                                    <p>₹  40</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Specification</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <h6>Description</h6>
+                                <p>{{single_product.description}}</p>
+                                
+                            </div>
+                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                <h6>Specification</h6>
+                                <p>some information about the item, e.g; minimum height , max height, type of plant/seed, sessin special etc ... </p>
+                                
+                            </div>
+                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                <h6>Reviews (3 Comment)</h6>
+                                <div class="blog__details__comment">
+                            
+                            <a href="#" class="leave-btn">Leave a comment</a>
+                            <div class="blog__comment__item">
+                                <div class="blog__comment__item__pic">
+                                    <img src="img/blog/details/comment-1.jpg" alt="">
+                                </div>
+                                <div class="blog__comment__item__text">
+                                    <h6>Brandon Kelley</h6>
+                                    <p>Duis voluptatum. Id vis consequat consetetur dissentiet, ceteros commune perpetua
+                                    mei et. Simul viderer facilisis egimus tractatos splendi.</p>
+                                    <ul>
+                                        <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
+                                        <li><i class="fa fa-heart-o"></i> 12</li>
+                                        <li><i class="fa fa-share"></i> 1</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="blog__comment__item blog__comment__item--reply">
+                                <div class="blog__comment__item__pic">
+                                    <img src="img/blog/details/comment-2.jpg" alt="">
+                                </div>
+                                <div class="blog__comment__item__text">
+                                    <h6>Brandon Kelley</h6>
+                                    <p>Consequat consetetur dissentiet, ceteros commune perpetua mei et. Simul viderer
+                                    facilisis egimus ulla mcorper.</p>
+                                    <ul>
+                                        <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
+                                        <li><i class="fa fa-heart-o"></i> 12</li>
+                                        <li><i class="fa fa-share"></i> 1</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="blog__comment__item">
+                                <div class="blog__comment__item__pic">
+                                    <img src="img/blog/details/comment-3.jpg" alt="">
+                                </div>
+                                <div class="blog__comment__item__text">
+                                    <h6>Brandon Kelley</h6>
+                                    <p>Duis voluptatum. Id vis consequat consetetur dissentiet, ceteros commune perpetua
+                                    mei et. Simul viderer facilisis egimus tractatos splendi.</p>
+                                    <ul>
+                                        <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
+                                        <li><i class="fa fa-heart-o"></i> 12</li>
+                                        <li><i class="fa fa-share"></i> 1</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            {% endblock %}

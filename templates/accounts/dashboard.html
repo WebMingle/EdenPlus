@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="{% url 'home' %}"><i class="fa fa-home"></i> Home</a>
+                        <span>Dashboard</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            
+            <form action="#" class="checkout__form">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5>My Orders List</h5>
+                        <div class="row">
+ 
+          <!-- Shop Cart Section Begin -->
+    <section class="shop-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shop__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                    <th>Quantity</th>
+                                    <th>Track Order</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for cart_item in cart_items %}
+                                <tr>
+                                    <td class="cart__product__item">
+                                        <img height='90px' width='90px' src="{{ cart_item.product.images.url}}" alt="">
+                                        <div class="cart__product__item__title">
+                                            <h6><a href="{{ cart_item.product.get_url }}"> {{ cart_item.product.product_name }}</a></h6>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price">₹ {{ cart_item.product.price }}</td>
+                                    <td class="cart__quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" value="{{ cart_item.quantity }}">
+                                        </div>
+                                    </td>
+                                    <td class="cart__total">₹ {{ cart_item.sub_total }}</td>
+                                    <td> <div class="product__details__button"> <a href="#" class="cart-btn">Track</a> </div> </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn">
+                        <a href="#">Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn update__btn">
+                        <a href="#"><span class="icon_loading"></span> Update cart</a>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </section>
+    <!-- Shop Cart Section End -->
+        <!-- Dashboard Menubar Section Start -->
+ 
+                            <div class="col-lg-12">
+                                  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="checkout__order">
+                                <h5>Hi !! {{user.first_name}} </h5>
+                            </div>
+                            <div class="checkout__order">
+                              <ul>
+                                   <h5> <a href="#">Homepage </a></h5>
+                                   <h5> <a href="#">My Address </a></h5>
+                                   <h5> <a href="#">My Carts </a></h5>
+                                   <h5> <a href="#">Saved Items </a></h5>
+                                   <h5> <a href="#">Address </a></h5>
+                                   <h5> <a href="#"> Settings  </a></h5>
+                                   <h5> <a href="#">Log Out  </a></h5>
+                              </ul>
+                                   <button type="submit" class="site-btn">Go To Home</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- Dashboard Menubar Section End --->
+
+
+    {% endblock %}

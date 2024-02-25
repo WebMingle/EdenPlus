@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            
+            <form action="{% url 'place_order' %}" method="POST" class="checkout__form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5>Billing Address Details</h5>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>First Name <span>*</span></p>
+                                    <input type="text" name="first_name" placeholder="First Name" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Last Name <span>*</span></p>
+                                    <input type="text" name="last_name" placeholder="Last Name" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="checkout__form__input">
+                                    <p>Country <span>*</span></p>
+                                    <input type="text" name="country" placeholder="Country Name ; e.g; India" >
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Address Line 1<span>*</span></p>
+                                    <input type="text" name="address_line_1" placeholder="District, Area Name, Street Name" required>
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Address Line 2<span></span></p>
+                                    <input type="text" name="address_line_2" placeholder="Landmark Address , Building Name ">
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Town/City <span>*</span></p>
+                                    <input type="text" name="town" placeholder="Town / Villege Name" required>
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>State <span>*</span></p>
+                                    <input type="text" name="state" placeholder="State Name --e.g; West Bengal" required>
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Order Note <span>*</span></p>
+                                    <input type="text" name="order_note" placeholder=" Enter something about this order">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Phone <span>*</span></p>
+                                    <input type="text" name="phone" placeholder="Valid Phone Number" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Email <span>*</span></p>
+                                    <input type="text" name="email" placeholder="Valid Email Address" required>
+                                </div>
+                            </div>
+                            
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="checkout__order">
+                                <h5>Your order</h5>
+                                
+                                <div class="checkout__order__product">
+                                    <ul>
+                                        <li>
+                                            <span class="top__text">Product</span>
+                                            <span class="top__text__right">Total</span>    
+                                        </li>
+                                         {% for cart_item in cart_items %}
+                                        <li>{{ cart_item.product.product_name }} <b> [ {{ cart_item.quantity }} ]</b>
+                                        <span>₹ {{ cart_item.sub_total }} </span> 
+                                        <br> {% if cart_item.variations.all %} {% for item in cart_item.variations.all %} {{ item.variation_value  }} {% endfor %} {% endif %}</br> {% endfor %}
+                                         </li> </ul>
+                                </div>
+                                
+                                <div class="checkout__order__total">
+                                    <ul>
+                                        <li>Subtotal <span>₹ {{ total }}</span></li>
+                                        <li>Total <span>₹ {{ grand_total }}</span></li>
+                                    </ul>
+                                </div>
+                                <div class="checkout__order__widget">
+                                    
+                                    <label for="check-payment">
+                                        Cheque Payment
+                                        <input type="checkbox" id="check-payment">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label for="paypal">
+                                        PayPal
+                                        <input type="checkbox" id="paypal">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <button class="site-btn primary" name="submit" type="submit"> Checkout Order </button> 
+                                <!-- <button type="submit" name="submit" class="site-btn"> Checkout Order </button> -->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- Checkout Section End --> 
+    {% endblock %}
